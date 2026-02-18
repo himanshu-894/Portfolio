@@ -1,55 +1,40 @@
-import { Moon, Sun } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Sun, Moon } from 'lucide-react';
+import { useTheme } from './ThemeProvider';
 
 export const ThemeToggle = () => {
-  const [isDark, setIsDark] = useState(true);
+    const { theme, toggleTheme } = useTheme();
 
-  useEffect(() => {
-    const root = document.documentElement;
-    
-    if (isDark) {
-      root.style.setProperty('--background', '240 38% 17%');
-      root.style.setProperty('--foreground', '0 0% 100%'); /* <-- FIX: Pure White */
-      root.style.setProperty('--card', '240 29% 23%');
-      root.style.setProperty('--popover', '240 29% 23%');
-      root.style.setProperty('--card-foreground', '0 0% 100%'); /* <-- FIX: Pure White */
-      root.style.setProperty('--popover-foreground', '0 0% 100%'); /* <-- FIX: Pure White */
-      root.style.setProperty('--muted', '240 20% 35%');
-      root.style.setProperty('--muted-foreground', '0 0% 85%'); /* <-- FIX: Neutral Grey */
-      root.style.setProperty('--border', '240 20% 35%');
-    } else {
-      root.style.setProperty('--background', '0 0% 98%');
-      root.style.setProperty('--foreground', '240 38% 17%'); /* Dark Text */
-      root.style.setProperty('--card', '0 0% 100%');
-      root.style.setProperty('--popover', '0 0% 100%');
-      root.style.setProperty('--card-foreground', '240 38% 17%'); /* Dark Text */
-      root.style.setProperty('--popover-foreground', '240 38% 17%'); /* Dark Text */
-      root.style.setProperty('--muted', '240 5% 85%');
-      root.style.setProperty('--muted-foreground', '240 5% 40%'); /* <-- FIX: Darker placeholder */
-      root.style.setProperty('--border', '240 6% 90%');
-    }
-  }, [isDark]);
-
-  return (
-    <button
-      onClick={() => setIsDark(!isDark)}
-      className="fixed top-24 right-6 z-50 glass-effect p-3 rounded-full hover:scale-110 transition-all duration-300 hover:shadow-[0_0_30px_rgba(160,80,240,0.5)] group"
-      aria-label="Toggle theme"
-    >
-      <div className="relative w-6 h-6">
-        <Sun
-          className={`absolute inset-0 transition-all duration-500 ${
-            isDark ? 'rotate-90 opacity-0' : 'rotate-0 opacity-100'
-          } text-primary group-hover:text-accent`}
-          size={24}
-        />
-        <Moon
-          className={`absolute inset-0 transition-all duration-500 ${
-            isDark ? 'rotate-0 opacity-100' : '-rotate-90 opacity-0'
-          } text-primary group-hover:text-accent`}
-          size={24}
-        />
-      </div>
-    </button>
-  );
+    return (
+        <button
+            onClick={toggleTheme}
+            className="relative h-10 w-10 rounded-full glass-effect flex items-center justify-center
+        hover:scale-110 hover:shadow-[0_0_20px_rgba(160,80,240,0.5)] transition-all duration-300"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+        >
+            <AnimatePresence mode="wait" initial={false}>
+                {theme === 'dark' ? (
+                    <motion.div
+                        key="moon"
+                        initial={{ scale: 0, rotate: -90, opacity: 0 }}
+                        animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                        exit={{ scale: 0, rotate: 90, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    >
+                        <Moon size={18} className="text-violet-300" />
+                    </motion.div>
+                ) : (
+                    <motion.div
+                        key="sun"
+                        initial={{ scale: 0, rotate: 90, opacity: 0 }}
+                        animate={{ scale: 1, rotate: 0, opacity: 1 }}
+                        exit={{ scale: 0, rotate: -90, opacity: 0 }}
+                        transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    >
+                        <Sun size={18} className="text-amber-500" />
+                    </motion.div>
+                )}
+            </AnimatePresence>
+        </button>
+    );
 };

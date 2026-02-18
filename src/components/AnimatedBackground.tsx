@@ -8,7 +8,6 @@ export const AnimatedBackground = () => {
     const grid = gridRef.current;
     if (!grid) return;
 
-    // Create grid cells
     for (let i = 0; i < 24; i++) {
       const cell = document.createElement('div');
       cell.className = 'grid-cell';
@@ -26,12 +25,11 @@ export const AnimatedBackground = () => {
     const particlesContainer = particlesRef.current;
     if (!particlesContainer) return;
 
-    // Create floating particles
     for (let i = 0; i < 30; i++) {
       const particle = document.createElement('div');
       const size = Math.random() * 4 + 2;
       const isTriangle = Math.random() > 0.5;
-      
+
       particle.className = isTriangle ? 'particle-triangle' : 'particle-circle';
       particle.style.width = `${size}px`;
       particle.style.height = `${size}px`;
@@ -39,7 +37,7 @@ export const AnimatedBackground = () => {
       particle.style.top = `${Math.random() * 100}%`;
       particle.style.animationDuration = `${15 + Math.random() * 10}s`;
       particle.style.animationDelay = `${Math.random() * 5}s`;
-      
+
       particlesContainer.appendChild(particle);
     }
 
@@ -51,7 +49,7 @@ export const AnimatedBackground = () => {
   return (
     <>
       {/* Dotted Background Layer */}
-      <div 
+      <div
         className="fixed inset-0 pointer-events-none opacity-60"
         style={{
           backgroundImage: `
@@ -63,7 +61,7 @@ export const AnimatedBackground = () => {
         }}
         aria-hidden="true"
       />
-      
+
       {/* Floating Particles */}
       <div
         ref={particlesRef}
@@ -71,7 +69,7 @@ export const AnimatedBackground = () => {
         style={{ zIndex: 1 }}
         aria-hidden="true"
       />
-      
+
       {/* Animated Grid */}
       <div
         ref={gridRef}
@@ -82,7 +80,7 @@ export const AnimatedBackground = () => {
         }}
         aria-hidden="true"
       />
-      
+
       <style>{`
         .grid-cell {
           background: rgba(255, 255, 255, 0.02);
