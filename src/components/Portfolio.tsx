@@ -91,7 +91,7 @@ export const Portfolio = () => {
             >
               <Card
                 onClick={() => setSelectedProject(project)}
-                className="glass-effect cursor-pointer overflow-hidden hover:scale-105
+                className="glass-effect cursor-pointer overflow-hidden
                   hover:shadow-[0_0_40px_rgba(160,80,240,0.4)] transition-all duration-500
                   relative group"
               >

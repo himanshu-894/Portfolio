@@ -169,21 +169,18 @@
       0 2px 12px rgba(0, 0, 0, 0.04);
   }
 
-  /* Rainbow hover on glass cards */
+  /* Rainbow hover on glass cards — uses mouse-tracked --spotlight-hue, no animation */
   .glass-effect:hover {
-    border-color: hsl(var(--rainbow-hue, 270) 80% 60% / 0.4);
+    border-color: hsl(var(--spotlight-hue, 270) 80% 60% / 0.4);
     box-shadow:
       0 8px 24px rgba(0, 0, 0, 0.25),
-      0 0 30px hsl(var(--rainbow-hue, 270) 80% 60% / 0.15),
-      inset 0 0 30px hsl(var(--rainbow-hue, 270) 80% 60% / 0.03);
-    animation: rainbow-border 4s linear infinite;
+      0 0 30px hsl(var(--spotlight-hue, 270) 80% 60% / 0.15);
   }
 
   html.light .glass-effect:hover {
     box-shadow:
       0 8px 32px rgba(120, 80, 200, 0.12),
-      0 0 40px hsl(var(--rainbow-hue, 270) 80% 60% / 0.12),
-      inset 0 0 20px hsl(var(--rainbow-hue, 270) 80% 70% / 0.04);
+      0 0 40px hsl(var(--spotlight-hue, 270) 80% 60% / 0.12);
   }
 
   .glass-text {
@@ -299,44 +296,8 @@
   }
 }
 
-/* ─── @property for rainbow animation ─── */
-@property --rainbow-hue {
-  syntax: '<number>';
-  initial-value: 270;
-  inherits: true;
-}
-
 /* ─── Keyframes ─── */
 
-@keyframes rainbow-border {
-  0% {
-    --rainbow-hue: 270;
-  }
-
-  16% {
-    --rainbow-hue: 320;
-  }
-
-  33% {
-    --rainbow-hue: 0;
-  }
-
-  50% {
-    --rainbow-hue: 30;
-  }
-
-  66% {
-    --rainbow-hue: 180;
-  }
-
-  83% {
-    --rainbow-hue: 220;
-  }
-
-  100% {
-    --rainbow-hue: 270;
-  }
-}
 
 @keyframes float {
 
